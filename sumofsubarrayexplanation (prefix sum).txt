@@ -1,0 +1,119 @@
+Let's break down the code and understand what it does step by step. This will help you grasp the concept of finding the **maximum sum of a subarray** using the **prefix sum** approach.
+
+---
+
+### **Code Explanation**
+
+#### **1. The `reverse` Method**
+This method calculates the maximum sum of all possible subarrays in the given array using the **prefix sum** technique.
+
+##### **Step 1: Create a Prefix Sum Array**
+- The `prefix` array stores the cumulative sum of the original array up to each index.
+- For example:
+  - If the original array is `[1, -2, 6, -1, 3]`, the prefix array will be:
+    ```
+    prefix[0] = 1
+    prefix[1] = 1 + (-2) = -1
+    prefix[2] = -1 + 6 = 5
+    prefix[3] = 5 + (-1) = 4
+    prefix[4] = 4 + 3 = 7
+    ```
+  - So, the `prefix` array becomes `[1, -1, 5, 4, 7]`.
+
+##### **Step 2: Calculate Subarray Sums**
+- The nested `for` loops iterate over all possible subarrays.
+- For each subarray from index `i` to `j`, the sum is calculated using the prefix array:
+  - If `i == 0`, the sum is simply `prefix[j]`.
+  - Otherwise, the sum is `prefix[j] - prefix[i-1]`.
+
+##### **Step 3: Track the Maximum Sum**
+- The variable `maxsum` keeps track of the largest sum found so far.
+- After calculating the sum of each subarray, it compares the sum with `maxsum` and updates `maxsum` if the current sum is greater.
+
+##### **Step 4: Print the Results**
+- The code prints the sum of each subarray and the final `maxsum`.
+
+---
+
+#### **2. The `main` Method**
+- This is the entry point of the program.
+- It initializes an array `[1, -2, 6, -1, 3]` and calls the `reverse` method to compute the maximum subarray sum.
+
+---
+
+### **Dry Run of the Code**
+
+Let's simulate the execution of the code step by step.
+
+#### **Input Array**
+```
+array = [1, -2, 6, -1, 3]
+```
+
+#### **Step 1: Compute the Prefix Sum Array**
+```
+prefix = [1, -1, 5, 4, 7]
+```
+
+#### **Step 2: Calculate Subarray Sums**
+- **Outer Loop (i):** Iterates from `0` to `4`.
+- **Inner Loop (j):** Iterates from `i+1` to `4`.
+
+| i | j | Subarray          | Sum Calculation (`prefix[j] - prefix[i-1]`) | Sum  |
+|---|----|-------------------|----------------------------------------------|------|
+| 0 | 1 | `[1, -2]`         | `prefix[1] - 0` (since `i == 0`)             | -1   |
+| 0 | 2 | `[1, -2, 6]`      | `prefix[2] - 0`                              | 5    |
+| 0 | 3 | `[1, -2, 6, -1]`  | `prefix[3] - 0`                              | 4    |
+| 0 | 4 | `[1, -2, 6, -1, 3]`| `prefix[4] - 0`                              | 7    |
+| 1 | 2 | `[-2, 6]`         | `prefix[2] - prefix[0]`                      | 5 - 1 = 4 |
+| 1 | 3 | `[-2, 6, -1]`     | `prefix[3] - prefix[0]`                      | 4 - 1 = 3 |
+| 1 | 4 | `[-2, 6, -1, 3]`  | `prefix[4] - prefix[0]`                      | 7 - 1 = 6 |
+| 2 | 3 | `[6, -1]`         | `prefix[3] - prefix[1]`                      | 4 - (-1) = 5 |
+| 2 | 4 | `[6, -1, 3]`      | `prefix[4] - prefix[1]`                      | 7 - (-1) = 8 |
+| 3 | 4 | `[-1, 3]`         | `prefix[4] - prefix[2]`                      | 7 - 5 = 2 |
+
+#### **Step 3: Track the Maximum Sum**
+- The sums of all subarrays are: `[-1, 5, 4, 7, 4, 3, 6, 5, 8, 2]`.
+- The maximum sum is `8`.
+
+#### **Step 4: Print the Results**
+- The program prints:
+  ```
+  -1
+  5
+  4
+  7
+  4
+  3
+  6
+  5
+  8
+  2
+  max sum 8
+  ```
+
+---
+
+### **Final Output**
+```
+-1
+5
+4
+7
+4
+3
+6
+5
+8
+2
+max sum 8
+```
+
+---
+
+### **Key Takeaways**
+1. The **prefix sum** technique simplifies the calculation of subarray sums.
+2. The time complexity of this algorithm is **O(n²)** because of the nested loops.
+3. The maximum sum of any subarray in `[1, -2, 6, -1, 3]` is **8**, which corresponds to the subarray `[6, -1, 3]`.
+
+Let me know if you need further clarification! 😊
